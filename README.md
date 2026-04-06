@@ -19,7 +19,7 @@ My PC is old , so
          wmode="transparent" width="625" height="800" />
 </object>
       
-<iframe src="https://github.com/DPGuide/Comos-OS-Bare-Metal-x64/blob/main/0406.mp4" width="560" height="315" width="600" height="450"></iframe>
+
 
 ***INCLUDES***
 + #include "schneider_lang.h"
