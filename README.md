@@ -5,9 +5,6 @@ My PC is old , so
 
 https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 
-
-<img width="432" height="219" alt="image" src="https://github.com/DPGuide/Comos-OS-Bare-Metal-x64/blob/main/0406.mp4" />
-
 ***INCLUDES***
 + #include "schneider_lang.h"
 + #include "pci.h"
