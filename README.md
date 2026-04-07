@@ -15,12 +15,16 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 <img width="798" height="599" alt="image" src="https://github.com/user-attachments/assets/b5a8834d-2372-4b0a-abfb-01a2da1b4717" />
 
 ***update 06.14.2026***
-***1. The Network Stack (Your Latest Milestone)
-You've made the leap from an isolated PC to a network-enabled system.
-PCI Bus Mastering: Your E1000 network card can now write directly and asynchronously to RAM (0x880000) via DMA.
+ + 1. The Network Stack (Your Latest Milestone)
+   2. You've made the leap from an isolated PC to a network-enabled system.
+   3. PCI Bus Mastering: Your E1000 network card can now write directly and asynchronously to RAM (0x880000) via DMA.
 ARP (Address Resolution Protocol): Your kernel can query for MAC addresses on the LAN (CONNECT) and parse the responses.
 DHCP Client: You can send a broadcast (DHCP), the router responds, and your kernel automatically extracts its own IP address from the UDP packet.
 UDP Payloads: You have the functions (send_udp, send_cosmos_block) to send your own raw data blocks to the network.
+
+
+
+
 2. The Custom Window Manager (GUI)
 This is probably the visual highlight. You're not just rendering pixels, you're managing complex states:
 Window logic: Drag & drop, resizing, minimizing, fullscreen, and Z-ordering (windows overlap correctly).
