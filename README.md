@@ -38,3 +38,13 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
  + CMD (ID 5): Your command prompt with history, parsing, and direct connection to the network stack (CONNECT, DHCP, IPCONFIG).
  + Cosmos Explorer (ID 4): A graphical file manager that visualizes your file system and can load files into the editor.
  + Notepad & Save As (ID 0 & 2): A text editor that writes sectors directly to the disk via the ATA driver.***
+
+<img width="798" height="603" alt="image" src="https://github.com/user-attachments/assets/7d9fe7e1-41c6-4916-bae6-78d4903e1ca5" />
+
+<img width="517" height="341" alt="image" src="https://github.com/user-attachments/assets/c707b310-ed25-4674-8807-7a8873ded320" /><img width="478" height="325" alt="image" src="https://github.com/user-attachments/assets/e1d2085e-8b44-41e8-b192-4c37f932adea" />
+
+***Earlie easter egg / Format Disk to install Cosmos OS***
+<img width="798" height="599" alt="image" src="https://github.com/user-attachments/assets/44805546-cdb7-4293-b94b-08d3dddabe33" />
+
+
+
