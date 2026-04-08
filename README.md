@@ -53,6 +53,6 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 
 https://github.com/user-attachments/assets/7c9e9b0f-48f5-4ff4-9125-79d3032fd856
 
+***Blobbey BareMetal***
 
-
-
+https://github.com/user-attachments/assets/e41248a9-968c-4747-ac06-b0fdac0dd0f2
