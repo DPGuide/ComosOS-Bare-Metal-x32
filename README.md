@@ -6,13 +6,14 @@
 
 https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 
-  ***Bare-Metal-SATA-Driver!***
+ 
   ***qemu-img create -f raw cosmos_hdd.img 100M***
   ***qemu-system-x86_64 -cdrom cosmos.iso -hda cosmos_hdd.img***
   
 ***create for test QEMU "dd if=/dev/zero of=cosmos_drive.img bs=1M count=64"***
 
 ***INCLUDES - all BAREMETAL***
+ ***Bare-Metal-SATA-Driver!***
 + #include "schneider_lang.cpp"
 + + #include "schneider_lang.h"
 + #include "pci.cpp"
@@ -24,6 +25,10 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 + #include "cosmos_fs.cpp"
 + + #include "cosmos_fs.h"
 + #include "cosmos_tba.cpp"
++ #cosmos_ahci.cpp
++ +#cosmos_ahci.f
++ #cosmos_cfs.cpp
++ + #cosmos_cfs.h
 
 ***update 06.14.2026***
  + The Network Stack (Your Latest Milestone)
