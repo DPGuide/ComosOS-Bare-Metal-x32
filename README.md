@@ -1,3 +1,5 @@
+  ******
+  ******
 ***My PC is old , so***
 + use qemu for quick test / under construction (add REAL hardware)
 
@@ -5,7 +7,8 @@
 ***yeah its easier then you know or think to put a video into the README (all EMBED code crap at the internet not work !)***
 
 https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
-
+  ******
+  ******
 ***WSL COMMANDS:***
 + qemu-img create -f raw cosmos_hdd.img 100M
 + qemu-system-x86_64 -cdrom cosmos.iso -hda cosmos_hdd.img
@@ -15,7 +18,6 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 + qemu-system-i386 -cdrom cosmos.iso   -device ahci,id=ahci   -drive if=none,file=cosmos_drive.img,id=sata_disk,format=raw   -device ide-hd,drive=sata_disk,bus=ahci.0
  
   ******
-  
   ******
 
 ***update 08.04.2026***
@@ -57,7 +59,8 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
  + CMD (ID 5): Your command prompt with history, parsing, and direct connection to the network stack (CONNECT, DHCP, IPCONFIG).
  + Cosmos Explorer (ID 4): A graphical file manager that visualizes your file system and can load files into the editor.
  + Notepad & Save As (ID 0 & 2): A text editor that writes sectors directly to the disk via the ATA driver.***
-
+  ******
+  ******
 <img width="798" height="603" alt="image" src="https://github.com/user-attachments/assets/7d9fe7e1-41c6-4916-bae6-78d4903e1ca5" />
 
 <img width="517" height="341" alt="image" src="https://github.com/user-attachments/assets/c707b310-ed25-4674-8807-7a8873ded320" /><img width="478" height="325" alt="image" src="https://github.com/user-attachments/assets/e1d2085e-8b44-41e8-b192-4c37f932adea" />
@@ -70,6 +73,8 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 ***Ping Pong - BareMetal***
 
 https://github.com/user-attachments/assets/7c9e9b0f-48f5-4ff4-9125-79d3032fd856
+  ******
+  ******
 
 ***Blobbey BareMetal***
 
