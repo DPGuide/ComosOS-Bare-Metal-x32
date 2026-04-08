@@ -49,6 +49,9 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 <img width="573" height="442" alt="image" src="https://github.com/user-attachments/assets/337cf577-607b-4c99-abe2-1269b1a1203a" />
 <img width="765" height="563" alt="image" src="https://github.com/user-attachments/assets/76521a50-ca49-41b1-9c36-5c20809db9d3" />
 
+***Ping Pong - BareMetal***
+
+https://github.com/user-attachments/assets/7c9e9b0f-48f5-4ff4-9125-79d3032fd856
 
 
 
