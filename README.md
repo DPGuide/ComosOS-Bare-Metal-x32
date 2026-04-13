@@ -31,7 +31,7 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
   ******
   ******
 
-***update 08.04.2026***
+***update 13.04.2026***
 
 ***INCLUDES - all BAREMETAL***
  ***Bare-Metal-SATA-Driver!***
@@ -50,6 +50,8 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
 + +#cosmos_ahci.f
 + #cosmos_cfs.cpp
 + + #cosmos_cfs.h
++ #include "kernel_main.cpp"
++ #include "cosmos_pci.cpp"
 
  ******
  ******
