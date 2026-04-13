@@ -74,14 +74,8 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
  + Notepad & Save As (ID 0 & 2): A text editor that writes sectors directly to the disk via the ATA driver.***
   ******
   ******
-<img width="798" height="603" alt="image" src="https://github.com/user-attachments/assets/7d9fe7e1-41c6-4916-bae6-78d4903e1ca5" />
+![123](https://github.com/user-attachments/assets/b7a2755c-5e03-4042-abd2-c0496a191c9f) ![456](https://github.com/user-attachments/assets/fffb838f-ade6-4b0e-9559-c9c798a96516)
 
-<img width="517" height="341" alt="image" src="https://github.com/user-attachments/assets/c707b310-ed25-4674-8807-7a8873ded320" /><img width="478" height="325" alt="image" src="https://github.com/user-attachments/assets/e1d2085e-8b44-41e8-b192-4c37f932adea" />
-
-***Earlie easter egg / Format Disk to install Cosmos OS***
-<img width="798" height="599" alt="image" src="https://github.com/user-attachments/assets/44805546-cdb7-4293-b94b-08d3dddabe33" />
-<img width="573" height="442" alt="image" src="https://github.com/user-attachments/assets/337cf577-607b-4c99-abe2-1269b1a1203a" />
-<img width="765" height="563" alt="image" src="https://github.com/user-attachments/assets/76521a50-ca49-41b1-9c36-5c20809db9d3" />
 
 ***Ping Pong - BareMetal***
 
