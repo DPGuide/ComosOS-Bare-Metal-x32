@@ -69,7 +69,7 @@ https://github.com/user-attachments/assets/79b9b1fa-d518-4435-82da-7836880f9b3a
  + Notepad & Save As (ID 0 & 2): A text editor that writes sectors directly to the disk via the ATA driver.***
   ******
   ******
-  ![346](https://github.com/user-attachments/assets/0a0efef7-80f1-4dd6-9ed2-70e5deb0e044)<img width="698" height="127" alt="image" src="https://github.com/user-attachments/assets/fa0f31a6-f00c-467e-8a13-ef162c88e40c" />
+<img width="638" height="468" alt="image" src="https://github.com/user-attachments/assets/98b826c6-6d75-4d5e-a371-9e7d651f6561" />)<img width="698" height="127" alt="image" src="https://github.com/user-attachments/assets/fa0f31a6-f00c-467e-8a13-ef162c88e40c" />
 
 
 
