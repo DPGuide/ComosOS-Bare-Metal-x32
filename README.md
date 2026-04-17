@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/48e6fa54-ce7e-4704-960c-55f482039838
 
   ******
   ******
-***WSL COMMANDS:***
+***For QEMU QUICK TEST - WSL COMMANDS:***
 + + DRVIERS HDD / CDROM / USB 
 + + ***WSL COMMANDS for QEMU Quick Test***
 + dd if=/dev/zero of=cosmos_usb.img bs=1M count=16
