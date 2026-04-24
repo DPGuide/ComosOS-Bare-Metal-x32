@@ -1,5 +1,11 @@
   ******
+  ***OS SYSTEM DUALSYSTEM 2in1***
   ******
+
+  Where can you find an OS that starts in 32-bit mode and, with the push of a button, switches to a 64-bit OS?
+nowhere except in my cosmic hyperleap cosmosOS
+That's cool, so in the future I can work on both systems, whether 32-bit or 64-bit, and make changes or additions!
+
   ***Big Fixes & updates , Oracle can find mostly everykind of Hardwere Address it doesnt matter if old Hardware or New***
 
 
