@@ -33,31 +33,12 @@ OS2 16 - 64 Bit Bare Metal
 qemu-system-x86_64 -boot d -cdrom cosmos.iso -m 512 -device ich9-ahci,id=ahci0 -drive id=disk0,file=cosmos_drive.img,format=raw,if=none -device ide-hd,drive=disk0,bus=ahci0.0 -drive id=disk1,file=cosmos_hdd.img,format=raw,if=none -device ide-hd,drive=disk1,bus=ahci0.1 -device qemu-xhci,id=xhci0 -drive id=usbstick,file=cosmos_usb.img,format=raw,if=none -device usb-storage,bus=xhci0.0,drive=usbstick
 
   ******
+  ***update 25.04.2026***
   ***kernel.cpp is OS1 x32 - kernel_main.cpp is OS2 x64***
   ******
 
-***update 25.04.2026***
 
-***INCLUDES - all BAREMETAL***
- ***Bare-Metal-SATA-Driver!***
-+ #include "schneider_lang.cpp"
-+ + #include "schneider_lang.h"
-+ #include "pci.cpp"
-+ + #include "pci.h"
-+ #include "net.cpp"
-+ + #include "net.h"
-+ #include "cosmos_bytes.cpp"
-+ + #include "cosmos_bytes.h"
-+ #include "cosmos_fs.cpp"
-+ + #include "cosmos_fs.h"
-+ #include "cosmos_tba.cpp"
-+ #cosmos_ahci.cpp
-+ +#cosmos_ahci.f
-+ #cosmos_cfs.cpp
-+ + #cosmos_cfs.h
-+ #include "kernel_main.cpp"
-+ #include "cosmos_pci.cpp"
-+ #include "cosmos_usb.cpp"
-+ + Graphic Design & Oracle DB (its awesome)
+
+
  ******
  ******
