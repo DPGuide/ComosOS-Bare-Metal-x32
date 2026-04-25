@@ -48,7 +48,7 @@ _81 _202 {
 } FIS_REG_H2D;
 
 // --- 2. DANN ERST DIE FUNKTIONEN ---
-_172 _50 ahci_init(_89 abar_address);
+_172 _50 ahci_init();
 _172 _44 ahci_read(HBA_PORT *port, _89 startlba, _50 *target_ram_address);
 _172 _44 ahci_write(HBA_PORT *port, _89 startlba, _50 *source_ram_address);
 _172 HBA_PORT* get_active_ahci_port();

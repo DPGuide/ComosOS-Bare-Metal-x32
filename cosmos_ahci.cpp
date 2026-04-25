@@ -17,6 +17,22 @@ _172 _89 ahci_found_ports_bitmask;
 _172 _50 str_cpy(_30* d, _71 _30* s);
 _172 _50 int_to_str(_43 val, _30* str);
 /// ==========================================
+/// BARE METAL PLUG & PLAY: Hardware Registry Import
+/// ==========================================
+_202 HardwareRegistry {
+    _44 is_ahci_found;
+    _89 ahci_bar5;
+    _44 is_usb_found;
+    _89 usb_bar0;
+    _44 is_net_found;
+    _89 net_bar0;
+    _89 net_io_port;
+};
+
+/// Wir sagen der Datei, dass diese beiden Variablen extern in anderen .cpp Dateien liegen!
+_172 HardwareRegistry sys_hw; 
+_172 _30 cmd_status[256];
+/// ==========================================
 /// ISO9660 STRUKTUR FÜR DATEIEN
 /// ==========================================
 #pragma pack(push, 1)
@@ -134,21 +150,67 @@ _50 ahci_port_rebase(HBA_PORT *port, _43 port_no) {
     port->cmd |= 0x0010;     /// FRE an
     port->cmd |= 0x0001;     /// ST an
 }
-_50 ahci_init(_89 abar_address) {
-    global_ahci_abar = abar_address;
-    HBA_MEM *hba = (HBA_MEM*)abar_address;
-    hba->ghc |= (1 << 31); 
-    _89 pi = hba->pi; 
+/// BARE METAL DRIVER: AHCI SATA Controller
+/// BARE METAL DRIVER: AHCI SATA Controller
+_50 ahci_init() {
+    /// 1. Hat das Oracle einen Controller gefunden UND ist die Adresse gültig?
+    _15(!sys_hw.is_ahci_found OR sys_hw.ahci_bar5 EQ 0) {
+        str_cpy(cmd_status, "AHCI: NO CONTROLLER FOUND!");
+        _96; 
+    }
+
+    /// 2. Adresse aus der Registry holen!
+    _89 abar = sys_hw.ahci_bar5;
+    volatile _89* hba_mem = (volatile _89*)abar;
+
+    /// ==========================================
+    /// BARE METAL FIX: WAKE UP THE CONTROLLER!
+    /// Wenn das auf neuen PCs fehlt, friert die CPU sofort ein.
+    /// Wir setzen GHC.AE (Bit 31 im Global Host Control Register).
+    /// ==========================================
+    hba_mem[1] = hba_mem[1] | 0x80000000; 
+
+    /// 3. PI (Ports Implemented) auslesen
+    _89 pi = hba_mem[3]; 
+    _15(pi EQ 0) {
+        str_cpy(cmd_status, "AHCI: NO PORTS IMPLEMENTED!");
+        _96;
+    }
+
+    /// (Hier geht dein Code mit der FOR-Schleife für die Ports weiter...)
     _39(_43 i = 0; i < 32; i++) {
         _15(pi & (1 << i)) {
-            HBA_PORT *port = &hba->ports[i];
-            _89 det = port->ssts & 0x0F;        
-            _15(det EQ 3 AND port->sig NEQ 0xEB140101) {
-                ahci_port_rebase(port, i);
-                _15(global_active_port EQ 0) { global_active_port = port; }
+            /// Port-Register starten bei Offset 0x100. Jeder Port hat 0x80 Bytes an Registern.
+            volatile _89* port = (volatile _89*)(abar + 0x100 + (i * 0x80));
+            
+            /// SATA Status Register (SSTS) lesen (Offset 0x28 innerhalb des Ports = Index 10)
+            _89 ssts = port[10]; 
+            
+            _89 det = ssts & 0x0F;         /// Device Detection (Ist was eingesteckt?)
+            _89 ipm = (ssts >> 8) & 0x0F;  /// Interface Power Management (Ist es wach?)
+
+            /// DET = 3 (Device detected and Phy established)
+            /// IPM = 1 (Active state)
+            _15(det EQ 3 AND ipm EQ 1) {
+                /// BARE METAL FIX: Laufwerk gefunden! Wir generieren eine schöne Systemmeldung.
+                str_cpy(cmd_status, "AHCI: DRIVE READY ON PORT ");
+                _30* p = cmd_status + 26;
+                _15(i < 10) {
+                    *p++ = '0' + i;
+                } _41 {
+                    *p++ = '0' + (i / 10);
+                    *p++ = '0' + (i % 10);
+                }
+                *p = 0;
+                
+                /// Hier könnten wir uns die Port-Nummer für später merken
+                /// z.B.: sys_hw.active_sata_port = i;
+                _96; /// Fürs Erste stoppen wir beim ersten gefundenen Laufwerk
             }
         }
     }
+    
+    str_cpy(cmd_status, "AHCI: NO DRIVES CONNECTED!");
 }
 /// ==========================================
 /// 2. DIE LESE-FUNKTION (ATAPI / CD-ROM)
@@ -187,7 +249,6 @@ _44 ahci_read_cdrom(_43 port_no, _89 lba, _43 count, _89 buffer_addr) {
 /// ISO9660 KERNEL LOADER
 /// ==========================================
 _50 iso9660_load_file(_43 port_no, _71 _30* target_filename) {
-    _172 _30 cmd_status[32];
     _89 pvd_buffer = 0x600000; /// Puffer für Sektor 16
     _89 dir_buffer = 0x601000; /// Puffer für das Verzeichnis
     _89 file_load_addr = 0x1000000; /// 16 MB Grenze
@@ -314,7 +375,6 @@ _44 ahci_write_sectors(_43 port_no, _43 lba, _43 count, _89 buffer_addr) {
 /// FAT32: ROOT DIRECTORY MIT LONG FILE NAMES (LFN)
 /// ==========================================
 _50 fat32_read_root_dir(_43 port_no) {
-    _172 _30 cmd_status[32];
     _89 bpb_buffer = 0x600000; 
     _89 dir_buffer = 0x601000;
     _15(!ahci_read_sectors(port_no, 0, 1, bpb_buffer)) {
@@ -418,7 +478,6 @@ _50 fat32_read_root_dir(_43 port_no) {
 /// FAT32: DATEI LADEN (UNTERSTÜTZT LANGE DATEINAMEN / LFN)
 /// ==========================================
 _50 fat32_load_file(_43 port_no, _71 _30* target_filename) {
-    _172 _30 cmd_status[32];
     /// Puffer im sicheren Bereich
     _89 bpb_buffer = 0x600000; 
     _89 dir_buffer = 0x601000; 
@@ -530,8 +589,6 @@ _50 fat32_load_file(_43 port_no, _71 _30* target_filename) {
 /// 3. DER FESTPLATTEN-SCANNER (INTEL Q67 EDITION)
 /// ==========================================
 _50 ahci_mount_drive() {
-    _172 _30 cmd_status[32];
-    _172 _43 drive_count;
     /// Wir löschen nicht mehr pauschal alles. Wir behalten alle Laufwerke,
     /// die KEINE SATA/AHCI-Platten sind (z.B. USB-Sticks mit Typ != 2).
     _43 retained_count = 0;
@@ -671,8 +728,6 @@ _50 ahci_mount_drive() {
 /// BARE METAL FIX: SEKTOR 0 DATEISYSTEM ERKENNUNG
 /// ==========================================
 _50 ahci_read_mbr() {
-    _172 _30 cmd_status[32];
-    _172 _43 drive_count;
     _15(drive_count EQ 0) {
         str_cpy(cmd_status, "ERROR: NO DRIVES MOUNTED");
         _96;
@@ -825,19 +880,19 @@ _44 ahci_read(HBA_PORT *port, _89 startlba, _50 *target_ram_address) {
     HBA_CMD_HEADER *cmdheader = (HBA_CMD_HEADER*)port->clb;
     cmdheader += slot;
     cmdheader->cfl = _64(FIS_REG_H2D)/_64(_89); 
-    cmdheader->w = 0; 
+    cmdheader->w = 1; 
     cmdheader->prdtl = 1;
     HBA_CMD_TBL *cmdtbl = (HBA_CMD_TBL*)(cmdheader->ctba);
     _39 (_43 i=0; i<_64(HBA_CMD_TBL) + (cmdheader->prdtl-1)*_64(HBA_PRDT_ENTRY); i++) {
         ((_184*)cmdtbl)[i] = 0;
     }
-    cmdtbl->prdt_entry[0].dba = (_89)target_ram_address;
+    cmdtbl->prdt_entry[0].dba = (_89)(uint64_t)target_ram_address;
     cmdtbl->prdt_entry[0].dbau = 0;
     cmdtbl->prdt_entry[0].dbc = 511 | (1 << 31);
     FIS_REG_H2D *cmdfis = (FIS_REG_H2D*)(&cmdtbl->cfis);
     cmdfis->fis_type = 0x27; 
     cmdfis->c = 1;           
-    cmdfis->command = 0x25;
+    cmdfis->command = 0x35;
     cmdfis->lba0 = (_184)startlba;
     cmdfis->lba1 = (_184)(startlba >> 8);
     cmdfis->lba2 = (_184)(startlba >> 16);
@@ -867,22 +922,26 @@ _44 ahci_write(HBA_PORT *port, _89 startlba, _50 *source_ram_address) {
         _15 ((slots & (1 << i)) == 0) { slot = i; _37; }
     }
     _15 (slot == 32) _96 0;
+    
     HBA_CMD_HEADER *cmdheader = (HBA_CMD_HEADER*)port->clb;
     cmdheader += slot;
     cmdheader->cfl = _64(FIS_REG_H2D)/_64(_89); 
     cmdheader->w = 1; 
     cmdheader->prdtl = 1;
+    
     HBA_CMD_TBL *cmdtbl = (HBA_CMD_TBL*)(cmdheader->ctba);
     _39 (_43 i=0; i<_64(HBA_CMD_TBL) + (cmdheader->prdtl-1)*_64(HBA_PRDT_ENTRY); i++) {
         ((_184*)cmdtbl)[i] = 0;
     }
-    cmdtbl->prdt_entry[0].dba = (_89)source_ram_address;
+    
+    cmdtbl->prdt_entry[0].dba = (_89)(uint64_t)source_ram_address;
     cmdtbl->prdt_entry[0].dbau = 0;
     cmdtbl->prdt_entry[0].dbc = 511 | (1 << 31);
+    
     FIS_REG_H2D *cmdfis = (FIS_REG_H2D*)(&cmdtbl->cfis);
     cmdfis->fis_type = 0x27; 
     cmdfis->c = 1;           
-    cmdfis->command = 0x35;
+    cmdfis->command = 0x35; 
     cmdfis->lba0 = (_184)startlba;
     cmdfis->lba1 = (_184)(startlba >> 8);
     cmdfis->lba2 = (_184)(startlba >> 16);
@@ -892,16 +951,27 @@ _44 ahci_write(HBA_PORT *port, _89 startlba, _50 *source_ram_address) {
     cmdfis->lba5 = 0;
     cmdfis->countl = 1;      
     cmdfis->counth = 0;
+
+    /// BARE METAL FIX 1: Timeout vor dem Senden auf 10 Mio erhöhen
     _43 spin = 0;
-    _114 ((port->tfd & (0x80 | 0x08)) && spin < 10000) spin++;
+    _114 ((port->tfd & (0x80 | 0x08)) && spin < 1000000) spin++;
+    _15 (spin >= 1000000) _96 0; 
+    
+    /// BARE METAL FIX 2: Zwingt die CPU, den Notepad-Text in den RAM zu schreiben!
+    __asm__ _192("wbinvd" ::: "memory");
+    
     port->ci = 1 << slot;
+    
+    /// BARE METAL FIX 3: Timeout nach dem Senden auf 50.000.000 erhöhen!
+    /// QEMU braucht Zeit, um die .img Datei auf deinem Linux-Host zu beschreiben.
     _43 wait_spin = 0;
-    _114 (wait_spin < 500000) {
+    _114 (wait_spin < 1000000) {
         _15 ((port->ci & (1 << slot)) == 0) _37; 
-        _15 (port->is & (1<<30)) _96 0;     
+        _15 (port->is & (1<<30)) _96 0;      
         wait_spin++;
     }
-    _15 (wait_spin >= 500000) _96 0;
+    
+    _15 (wait_spin >= 1000000) _96 0;
     _96 1; 
 }
 /// ==========================================
