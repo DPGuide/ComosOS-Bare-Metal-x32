@@ -40,11 +40,11 @@ qemu-system-x86_64 -boot d -cdrom cosmos.iso -m 512 -device ich9-ahci,id=ahci0 -
   + + no you dont need to write all in schneider_lang.h but mostly i do ,
   + + and after bigger upgrades i will change hole codes into it again.
   + + its smaler, faster, more stable ,......
-  Yes, during compilation there are a few cosmetic warnings due to the switch to x64; 
+ 
+ ******
+Yes, during compilation there are a few cosmetic warnings due to the switch to x64; 
   these are just warnings and not errors, simply ignore them! at the moment a stable 
   working xHCI is more important then to clean those warnings!
-  ******
-
  ******
   ***kernel.cpp is OS1 x32 - kernel_main.cpp is OS2 x64***
  ******
