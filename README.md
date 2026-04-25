@@ -37,6 +37,9 @@ qemu-system-x86_64 -boot d -cdrom cosmos.iso -m 512 -device ich9-ahci,id=ahci0 -
   + no both games i will take out from kernel.cpp soon 
   + and put them into a app.cpp, then its easier end better
   +  to implement it in to x64 OS2
+  + + no you dont need to write all in schneider_lang.h but mostly i do ,
+  + + and after bigger upgrades i will change hole codes into it again.
+  + + its smaler, faster, more stable ,......
   ******
 
  ******
