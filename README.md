@@ -34,11 +34,8 @@ qemu-system-x86_64 -boot d -cdrom cosmos.iso -m 512 -device ich9-ahci,id=ahci0 -
 
   ******
   ***update 25.04.2026***
-  ***kernel.cpp is OS1 x32 - kernel_main.cpp is OS2 x64***
   ******
 
-
-
-
  ******
+  ***kernel.cpp is OS1 x32 - kernel_main.cpp is OS2 x64***
  ******
