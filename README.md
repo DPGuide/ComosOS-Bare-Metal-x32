@@ -3,6 +3,12 @@
 ***no you dont need anykind of other tools or packages, this here is pure bare metal***
 
 ***sure feel free to use it by youre owen , and make youre owen changes. for youre private work***
+
+***but do not take or use shit from linux or windows, then you only lag the system and the true power od bare metal***
+
+***for tools / programms or games , ok. but for the hardware . NO , they all gonna slow down the system if you use linux or windows things for hardware***
+
+***if you have problems ask AI Gemini Pro , all other throw away , i have push gemini since november 2025 in pure bare metal , Gemini Pro is now the best , for pure bare metal***
   
   ******
   ***DUAL OS SYSTEM - 2in1 x32 & x64***
